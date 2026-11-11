@@ -72,7 +72,7 @@
 <body>
 <div class="top"><div class="wrap"><img src="images/logo-navy.png" alt="Feather Ranch Kennels"><a href="index.html" target="_blank">View my website ↗</a></div></div>
 <main class="wrap">
-  <div class="intro"><h1>Hi Debbie!</h1><p>Change anything below. The preview shows exactly how your website will look.</p></div>
+  <div class="intro"><h1 id="hello">Hello, Debbie</h1><p>Change anything below. The preview shows exactly how your website will look.</p></div>
   <div class="layout">
     <div>
       <section class="card">
@@ -156,6 +156,8 @@
   var btn = document.getElementById("save");
   function saved(yes) { btn.classList.toggle("done", yes); btn.textContent = yes ? "✓ Saved" : "Save changes"; }
   btn.addEventListener("click", function () { saved(true); });
+  var h = new Date().getHours();
+  document.getElementById("hello").textContent = "Good " + (h < 12 ? "morning" : h < 17 ? "afternoon" : "evening") + ", Debbie";
   render(); renderAnn();
 })();
 </script>
