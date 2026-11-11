@@ -438,3 +438,12 @@ footer.site { border-top: 1px solid var(--line); padding: 110px 0 36px; }
 .paper .empty .btn-ghost { border-color: rgba(20,32,51,.3); color: var(--ink); }
 .paper .empty .btn-ghost:hover { background: var(--ink); color: var(--cream); }
 .menu-open .announce { visibility: hidden; }
+
+/* Phone: one photo per step instead of a sticky photo */
+.step-photo { display: none; }
+@media (max-width: 900px) {
+  .stage { display: none; }
+  .step { min-height: 0; opacity: 1; padding: 34px 0; }
+  .step-photo { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 18px; margin-bottom: 22px; }
+  .steps { padding: 20px 0 0; }
+}
