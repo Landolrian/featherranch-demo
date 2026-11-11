@@ -5,115 +5,110 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Owner Dashboard | Feather Ranch Kennels</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a2651'/%3E%3Ctext x='32' y='45' font-family='Georgia' font-style='italic' font-size='38' fill='%23c9a15b' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1626'/%3E%3Ctext x='32' y='46' font-family='Georgia' font-style='italic' font-size='40' fill='%23e2c48c' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  body { background: #eef1f6; padding-bottom: 0; }
-  .dash-top { background: var(--navy); color: #fff; }
-  .dash-top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
-  .dash-top img { height: 26px; filter: brightness(0) invert(1); }
-  .dash-top a { color: #cfd8ea; text-decoration: none; font-size: .92rem; }
-  .hello { padding: 40px 0 10px; }
-  .hello h1 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); margin-bottom: 6px; }
-  .hello p { color: var(--muted); margin: 0; }
-  .dash { display: grid; grid-template-columns: 420px 1fr; gap: 28px; padding: 26px 0 70px; align-items: start; }
+  body { background: var(--night); }
+  .bar { border-bottom: 1px solid var(--line); }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 16px; }
+  .bar img { height: 26px; width: auto; }
+  .bar a { color: var(--dim); text-decoration: none; font-weight: 600; font-size: .9rem; }
+  .bar a:hover { color: var(--cream); }
+  .hello { padding: 60px 0 36px; display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; }
+  .hello h1 { font-size: clamp(3rem, 6vw, 5.4rem); line-height: .9; }
+  .hello p { color: var(--soft); margin: 0; max-width: 28em; }
+  .dash { display: grid; grid-template-columns: 430px 1fr; gap: 36px; padding-bottom: 80px; align-items: start; }
   .dash > * { min-width: 0; }
-  .browser-bar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-  .panel { background: #fff; border-radius: 20px; padding: 26px; box-shadow: var(--shadow); border: 1px solid var(--line); }
-  .panel h2 { font-size: 1.3rem; margin-bottom: 4px; }
-  .panel .sub { color: var(--muted); font-size: .9rem; margin-bottom: 20px; }
-  .tabs { display: flex; gap: 6px; background: var(--cream); padding: 5px; border-radius: 12px; margin-bottom: 20px; }
-  .tabs button { flex: 1; font: inherit; font-weight: 600; font-size: .88rem; border: 0; background: none; padding: 9px; border-radius: 9px; cursor: pointer; color: var(--muted); }
-  .tabs button[aria-selected="true"] { background: #fff; color: var(--navy); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
-  .status-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .status-row label { position: relative; border: 2px solid var(--line); border-radius: 10px; padding: 10px 6px; text-align: center; font-size: .85rem; font-weight: 600; cursor: pointer; color: var(--navy); }
-  .status-row input { position: absolute; opacity: 0; }
-  .status-row label:has(input:checked) { border-color: var(--blue); background: #eaf2fb; }
-  .drop { border: 2px dashed #c5cdda; border-radius: 14px; padding: 14px; display: flex; gap: 14px; align-items: center; cursor: pointer; transition: background .2s, border-color .2s; }
-  .drop:hover, .drop.over { background: #eaf2fb; border-color: var(--blue); }
-  .drop img { width: 56px; height: 70px; object-fit: cover; border-radius: 8px; }
-  .drop span { font-size: .88rem; color: var(--muted); }
-  .drop b { display: block; color: var(--navy); font-size: .95rem; }
-  .switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); margin-top: 6px; }
-  .switch b { color: var(--navy); font-size: .95rem; }
-  .switch small { display: block; color: var(--muted); font-size: .82rem; }
-  .toggle { appearance: none; width: 50px; height: 28px; border-radius: 999px; background: #cfd5df; position: relative; cursor: pointer; transition: background .2s; flex: none; }
-  .toggle::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
-  .toggle:checked { background: #1f8f4e; }
+  .panel { background: var(--night-2); border: 1px solid var(--line); border-radius: 26px; padding: 28px; }
+  .tabs { display: flex; gap: 4px; padding: 5px; border-radius: 999px; background: rgba(244,239,230,.06); margin-bottom: 28px; }
+  .tabs button { flex: 1; font: inherit; font-weight: 700; font-size: .86rem; border: 0; background: none; color: var(--dim); padding: 10px; border-radius: 999px; cursor: pointer; transition: background .3s, color .3s; }
+  .tabs button[aria-selected="true"] { background: var(--cream); color: var(--night); }
+  .panel h2 { font-size: 2.2rem; margin-bottom: 6px; }
+  .panel .sub { color: var(--dim); font-size: .92rem; margin-bottom: 26px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .status-pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
+  .status-pick label { position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 12px 6px; text-align: center; font-size: .82rem; font-weight: 700; cursor: pointer; line-height: 1.3; transition: border-color .3s, background .3s; letter-spacing: 0; text-transform: none; color: var(--cream); margin: 0; }
+  .status-pick input { position: absolute; opacity: 0; pointer-events: none; }
+  .status-pick label:has(input:checked) { border-color: var(--wheat); background: rgba(226,196,140,.12); color: var(--wheat); }
+  .drop { display: flex; gap: 16px; align-items: center; border: 1px dashed rgba(244,239,230,.3); border-radius: 16px; padding: 12px; cursor: pointer; transition: border-color .3s, background .3s; letter-spacing: 0 !important; text-transform: none !important; }
+  .drop:hover, .drop.over { border-color: var(--wheat); background: rgba(226,196,140,.08); }
+  .drop img { width: 58px; height: 72px; object-fit: cover; border-radius: 10px; }
+  .drop b { display: block; color: var(--cream); font-size: .98rem; }
+  .drop span { color: var(--dim); font-size: .85rem; font-weight: 500; }
+  .switch { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 26px; }
+  .switch b { display: block; }
+  .switch small { color: var(--dim); }
+  .toggle { appearance: none; -webkit-appearance: none; width: 52px; height: 30px; border-radius: 999px; background: rgba(244,239,230,.2); position: relative; cursor: pointer; transition: background .3s; flex: none; }
+  .toggle::after { content: ""; position: absolute; top: 4px; left: 4px; width: 22px; height: 22px; border-radius: 50%; background: var(--cream); transition: transform .3s var(--ease); }
+  .toggle:checked { background: #3fae6e; }
   .toggle:checked::after { transform: translateX(22px); }
-  .preview-wrap { position: sticky; top: 20px; }
-  .browser { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--line); }
-  .browser-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #f4f5f8; border-bottom: 1px solid var(--line); }
-  .browser-bar i { width: 11px; height: 11px; border-radius: 50%; background: #e1e4ea; }
-  .browser-bar span { margin-left: 10px; background: #fff; border-radius: 8px; padding: 5px 14px; font-size: .82rem; color: var(--muted); flex: 1; }
-  .live { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 700; color: #1d6b3d; background: #e7f5ec; padding: 4px 10px; border-radius: 999px; }
-  .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #1f8f4e; animation: pulse 1.4s infinite; }
-  @keyframes pulse { 50% { opacity: .3; } }
-  .preview-body { padding: 26px; background: var(--cream); max-height: calc(100vh - 160px); overflow: auto; }
-  .preview-body .litter { box-shadow: var(--shadow); }
-  .preview-body .parents { grid-template-columns: 1fr; }
-  .preview-body .parent + .parent { border-left: 0; border-top: 1px solid var(--line); }
-  .flash { animation: flash .8s ease; }
-  @keyframes flash { 0% { box-shadow: 0 0 0 0 rgba(201,161,91,.9); } 100% { box-shadow: 0 0 0 18px rgba(201,161,91,0); } }
-  .publish { width: 100%; justify-content: center; margin-top: 18px; padding: 1em; }
-  .toast { position: fixed; left: 16px; right: 16px; margin: 0 auto; width: fit-content; bottom: 28px; transform: translateY(30px); background: var(--navy); color: #fff; padding: 14px 22px; border-radius: 14px; box-shadow: var(--shadow-lg); opacity: 0; transition: .3s; font-weight: 500; z-index: 99; max-width: calc(100% - 32px); }
-  .toast.show { opacity: 1; transform: none; }
+  .publish { width: 100%; justify-content: center; margin-top: 10px; }
   .tabpane[hidden] { display: none; }
-  @media (max-width: 980px) { .dash { grid-template-columns: 1fr; } .preview-wrap { position: static; } .preview-body { max-height: none; } }
+  .preview-wrap { position: sticky; top: 24px; }
+  .browser { border-radius: 22px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 40px 100px rgba(0,0,0,.45); }
+  .chrome { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #16243a; }
+  .chrome i { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,.18); }
+  .chrome span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: 10px; background: rgba(255,255,255,.07); border-radius: 8px; padding: 5px 14px; font-size: .8rem; color: var(--dim); }
+  .live { display: inline-flex; align-items: center; gap: 7px; font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #6fe09c; }
+  .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6fe09c; animation: blink 1.4s infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+  .preview { background: var(--cream); color: var(--ink); padding: 34px; max-height: calc(100vh - 150px); overflow: auto; }
+  .preview .pair { grid-template-columns: 1fr 70px 1fr; }
+  .preview .cross { font-size: 4.4rem; margin-top: -40px; }
+  .preview .parent h4 { font-size: 1.9rem; }
+  .preview .parent p { font-size: .92rem; }
+  .preview .litter-top h3 { font-size: 3rem; }
+  .preview .litter-cta { margin-top: 34px; padding: 22px 24px; }
+  .preview .litter-cta p { font-size: 1.4rem; }
+  .flash { animation: flash 1s ease; border-radius: 8px; }
+  @keyframes flash { 0% { background: rgba(226,196,140,.9); } 100% { background: transparent; } }
+  .toast { position: fixed; left: 16px; right: 16px; bottom: 26px; margin: 0 auto; width: fit-content; max-width: calc(100% - 32px); background: var(--cream); color: var(--night); padding: 14px 22px; border-radius: 999px; font-weight: 700; box-shadow: 0 20px 50px rgba(0,0,0,.4); opacity: 0; transform: translateY(20px); transition: .4s var(--ease); z-index: 50; }
+  .toast.show { opacity: 1; transform: none; }
+  @media (max-width: 1050px) { .dash { grid-template-columns: 1fr; } .preview-wrap { position: static; } .preview { max-height: none; } }
+  @media (max-width: 640px) { .preview { padding: 20px; } .preview .pair { grid-template-columns: 1fr; } .row2 { grid-template-columns: 1fr; gap: 0; } .panel { padding: 22px 18px; } }
 </style>
 </head>
 <body>
-<div class="dash-top"><div class="wrap"><span style="font-family:var(--serif);font-style:italic;font-size:1.4rem">Feather Ranch Kennels</span><a href="index.html" target="_blank">View website ↗</a></div></div>
+<div class="bar"><div class="wrap"><img src="images/logo-white.png" alt="Feather Ranch Kennels"><a href="index.html" target="_blank">View website ↗</a></div></div>
 <main class="wrap">
-  <div class="hello"><h1>Good to see you, Debbie</h1><p>Type on the left and watch your website change on the right. No computer skills needed.</p></div>
+  <div class="hello"><div><span class="label">Owner dashboard</span><h1 style="margin-top:14px">Good morning, <i>Debbie.</i></h1></div><p>Type on the left and watch your website change on the right. No computer skills needed.</p></div>
   <div class="dash">
     <div class="panel">
-      <div class="tabs" role="tablist">
-        <button role="tab" aria-selected="true" data-tab="litter">Litter</button>
-        <button role="tab" aria-selected="false" data-tab="parents">Parents</button>
-        <button role="tab" aria-selected="false" data-tab="banner">Banner</button>
-      </div>
-
+      <div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="litter">Litter</button><button role="tab" aria-selected="false" data-tab="parents">Parents</button><button role="tab" aria-selected="false" data-tab="banner">Banner</button></div>
       <div class="tabpane" data-pane="litter">
-        <h2>Current litter</h2><p class="sub">What visitors see on the Home and Puppies pages.</p>
+        <h2>Current litter</h2><p class="sub">Shown on the Home and Puppies pages.</p>
         <div class="field"><label for="e-name">Litter name</label><input id="e-name" data-k="name"></div>
-        <div class="form-row"><div class="field"><label for="e-born">Born</label><input id="e-born" data-k="born"></div><div class="field"><label for="e-colors">Colors</label><input id="e-colors" data-k="colors"></div></div>
-        <div class="field"><label>Status</label>
-          <div class="status-row">
-            <label><input type="radio" name="status" value="Taking deposits">Taking deposits</label>
-            <label><input type="radio" name="status" value="Call for availability" checked>Call for availability</label>
-            <label><input type="radio" name="status" value="Sold out">Sold out</label>
-          </div></div>
+        <div class="row2"><div class="field"><label for="e-born">Born</label><input id="e-born" data-k="born"></div><div class="field"><label for="e-colors">Colors</label><input id="e-colors" data-k="colors"></div></div>
+        <div class="field"><label>Status</label><div class="status-pick">
+          <label><input type="radio" name="status" value="Taking deposits">Taking deposits</label>
+          <label><input type="radio" name="status" value="Call for availability">Call for availability</label>
+          <label><input type="radio" name="status" value="Sold out">Sold out</label></div></div>
         <div class="field"><label for="e-note">A note about this litter</label><textarea id="e-note" data-k="note" style="min-height:80px"></textarea></div>
       </div>
-
       <div class="tabpane" data-pane="parents" hidden>
-        <h2>Sire &amp; dam</h2><p class="sub">Swap a photo by dragging one in, or tap to choose from your phone.</p>
-        <div class="field"><label>Sire photo</label><label class="drop" data-who="sire"><img alt=""><div><b>Change photo</b><span>Drag a photo here or tap</span></div><input type="file" accept="image/*" hidden></label></div>
+        <h2>Sire &amp; dam</h2><p class="sub">Drag in a new photo, or tap to choose one from your phone.</p>
+        <div class="field"><label class="drop" data-who="sire"><img alt=""><div><b>Sire photo</b><span>Drag a photo here or tap</span></div><input type="file" accept="image/*" hidden></label></div>
         <div class="field"><label for="e-sire">Sire name</label><input id="e-sire" data-p="sire.name"></div>
         <div class="field"><label for="e-sire-about">About the sire</label><textarea id="e-sire-about" data-p="sire.about" style="min-height:90px"></textarea></div>
-        <div class="field"><label>Dam photo</label><label class="drop" data-who="dam"><img alt=""><div><b>Change photo</b><span>Drag a photo here or tap</span></div><input type="file" accept="image/*" hidden></label></div>
+        <div class="field"><label class="drop" data-who="dam"><img alt=""><div><b>Dam photo</b><span>Drag a photo here or tap</span></div><input type="file" accept="image/*" hidden></label></div>
         <div class="field"><label for="e-dam">Dam name</label><input id="e-dam" data-p="dam.name"></div>
         <div class="field"><label for="e-dam-about">About the dam</label><textarea id="e-dam-about" data-p="dam.about" style="min-height:90px"></textarea></div>
       </div>
-
       <div class="tabpane" data-pane="banner" hidden>
-        <h2>Top banner</h2><p class="sub">A gold strip across the top of every page. Great for news.</p>
-        <div class="switch"><div><b>Show the banner</b><small>Turn off when there's no news</small></div><input type="checkbox" class="toggle" id="e-ann-on" checked aria-label="Show the banner"></div>
+        <h2>Top banner</h2><p class="sub">A gold strip across the top of every page. Perfect for news.</p>
+        <div class="switch"><div><b>Show the banner</b><small>Turn it off when there's no news</small></div><input type="checkbox" class="toggle" id="e-ann-on" checked aria-label="Show the banner"></div>
         <div class="field"><label for="e-ann">Banner message</label><input id="e-ann"></div>
       </div>
-
-      <button class="btn btn-primary publish" id="publish">Publish changes</button>
+      <button class="btn btn-cream publish" id="publish">Publish changes <span>→</span></button>
     </div>
-
     <div class="preview-wrap">
       <div class="browser">
-        <div class="browser-bar"><i></i><i></i><i></i><span>featherranch.com/puppies</span><b class="live">Live preview</b></div>
-        <div id="announce-prev" class="announce"></div>
-        <div class="preview-body"><div id="prev"></div></div>
+        <div class="chrome"><i></i><i></i><i></i><span>featherranch.com/puppies</span><b class="live">Live</b></div>
+        <div class="announce" id="ann-prev"></div>
+        <div class="preview"><div id="prev"></div></div>
       </div>
     </div>
   </div>
@@ -123,56 +118,53 @@
 <script>
 (function () {
   var C = window.FRK, L = JSON.parse(JSON.stringify(C.litters[0]));
-  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
-  var parent = function (p, role) {
-    return '<div class="parent"><img src="' + esc(p.photo) + '" alt=""><div><span class="role">' + role + "</span><h4>" + esc(p.name) + "</h4><p>" + esc(p.about) + '</p><div class="chips">' + (p.health || []).map(function (h) { return '<span class="chip health">' + esc(h) + "</span>"; }).join("") + "</div></div></div>";
-  };
-  var prev = document.getElementById("prev");
-  function render(flashSel) {
-    var sold = /sold/i.test(L.status);
-    prev.innerHTML = '<article class="litter"><div class="litter-head"><div><h3 data-f="name">' + esc(L.name) + '</h3><p data-f="born">Born ' + esc(L.born) + " · " + esc(L.colors) + ' Labrador Retrievers</p></div><span class="pill' + (sold ? " soldout" : "") + '" data-f="status">' + esc(L.status) + '</span></div><div class="parents">' + parent(L.sire, "Sire") + parent(L.dam, "Dam") + '</div><div class="litter-foot"><p data-f="note">' + esc(L.note) + '</p><div class="actions"><span class="btn btn-primary">Reserve a puppy</span></div></div></article>';
-    if (flashSel) { var el = prev.querySelector(flashSel); if (el) { el.classList.add("flash"); } }
-  }
   L.colors = (L.colors || []).join(", ");
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+  var parent = function (p, role, key) {
+    return '<div class="parent"><figure data-f="' + key + '-photo"><img src="' + esc(p.photo) + '" alt="" style="object-position:center 28%"><span>' + role + '</span></figure><h4 data-f="' + key + '-name">' + esc(p.name) + '</h4><div class="call">“' + esc(p.callName) + '”</div><p data-f="' + key + '-about">' + esc(p.about) + '</p><ul class="clearances">' + (p.health || []).map(function (h) { var x = h.split(/\s*[–-]\s*/); return "<li><span>" + esc(x[0]) + "</span><b>" + esc(x[1] || "") + "</b></li>"; }).join("") + "</ul></div>";
+  };
+  var prev = document.getElementById("prev"), last;
+  function render(changed) {
+    var sold = /sold/i.test(L.status);
+    prev.innerHTML = '<div class="litter-top"><h3 data-f="name">The ' + esc(L.name.replace(/ litter$/i, "")) + ' <i>Litter</i></h3><div class="litter-meta"><span data-f="born">Born ' + esc(L.born) + '</span><span data-f="colors">' + esc(L.colors) + ' Labs</span><span class="status' + (sold ? " sold" : "") + '" data-f="status">' + esc(L.status) + '</span></div></div><div class="pair">' + parent(L.sire, "Sire", "sire") + '<div class="cross">×</div>' + parent(L.dam, "Dam", "dam") + '</div><div class="litter-cta"><p data-f="note">' + esc(L.note) + '<br><i>A $100 deposit holds your pick.</i></p><div class="acts"><span class="btn btn-cream">Reserve a puppy <span>→</span></span></div></div>';
+    if (changed && changed !== last) { var el = prev.querySelector('[data-f="' + changed + '"]'); if (el) { el.classList.add("flash"); el.scrollIntoView({ block: "nearest", behavior: "smooth" }); } }
+    last = changed;
+    setTimeout(function () { last = null; }, 900);
+  }
   document.querySelectorAll("[data-k]").forEach(function (el) {
-    var k = el.getAttribute("data-k"); el.value = L[k];
-    el.addEventListener("input", function () { L[k] = el.value; render(); });
+    var k = el.dataset.k; el.value = L[k];
+    el.addEventListener("input", function () { L[k] = el.value; render(k); });
   });
   document.querySelectorAll("[data-p]").forEach(function (el) {
-    var path = el.getAttribute("data-p").split("."); el.value = L[path[0]][path[1]];
-    el.addEventListener("input", function () { L[path[0]][path[1]] = el.value; render(); });
+    var p = el.dataset.p.split("."); el.value = L[p[0]][p[1]];
+    el.addEventListener("input", function () { L[p[0]][p[1]] = el.value; render(p[0] + "-" + p[1]); });
   });
   document.querySelectorAll("input[name=status]").forEach(function (r) {
-    if (r.value === L.status) r.checked = true;
-    r.addEventListener("change", function () { L.status = r.value; render(".pill"); });
+    r.checked = r.value === L.status;
+    r.addEventListener("change", function () { L.status = r.value; render("status"); });
   });
   document.querySelectorAll(".drop").forEach(function (d) {
-    var who = d.getAttribute("data-who"), img = d.querySelector("img"), input = d.querySelector("input");
+    var who = d.dataset.who, img = d.querySelector("img"), input = d.querySelector("input");
     img.src = L[who].photo;
-    var use = function (file) {
-      if (!file || !/^image\//.test(file.type)) return;
-      var r = new FileReader();
-      r.onload = function () { L[who].photo = r.result; img.src = r.result; render(".parent:" + (who === "sire" ? "first-child" : "last-child") + " img"); };
-      r.readAsDataURL(file);
-    };
+    var use = function (f) { if (!f || !/^image\//.test(f.type)) return; var r = new FileReader(); r.onload = function () { L[who].photo = r.result; img.src = r.result; render(who + "-photo"); }; r.readAsDataURL(f); };
     input.addEventListener("change", function () { use(input.files[0]); });
     d.addEventListener("dragover", function (e) { e.preventDefault(); d.classList.add("over"); });
     d.addEventListener("dragleave", function () { d.classList.remove("over"); });
     d.addEventListener("drop", function (e) { e.preventDefault(); d.classList.remove("over"); use(e.dataTransfer.files[0]); });
   });
-  var ann = document.getElementById("e-ann"), annOn = document.getElementById("e-ann-on"), annPrev = document.getElementById("announce-prev");
+  var ann = document.getElementById("e-ann"), on = document.getElementById("e-ann-on"), ap = document.getElementById("ann-prev");
   ann.value = C.announcement;
-  var renderAnn = function () { annPrev.textContent = ann.value + " · See the litter →"; annPrev.style.display = annOn.checked && ann.value ? "" : "none"; };
-  ann.addEventListener("input", renderAnn); annOn.addEventListener("change", renderAnn);
+  var renderAnn = function () { ap.textContent = ann.value + " · See the litter →"; ap.style.display = on.checked && ann.value ? "" : "none"; };
+  ann.addEventListener("input", renderAnn); on.addEventListener("change", renderAnn);
   document.querySelectorAll("[role=tab]").forEach(function (t) {
     t.addEventListener("click", function () {
       document.querySelectorAll("[role=tab]").forEach(function (x) { x.setAttribute("aria-selected", x === t); });
-      document.querySelectorAll(".tabpane").forEach(function (p) { p.hidden = p.getAttribute("data-pane") !== t.getAttribute("data-tab"); });
+      document.querySelectorAll(".tabpane").forEach(function (p) { p.hidden = p.dataset.pane !== t.dataset.tab; });
     });
   });
   var toast = document.getElementById("toast");
   document.getElementById("publish").addEventListener("click", function () {
-    toast.textContent = "✓ Looks great! When your new site is live, this button puts your changes online instantly.";
+    toast.textContent = "✓ Looks great. Once your new site is live, this button puts changes online instantly.";
     toast.classList.add("show"); setTimeout(function () { toast.classList.remove("show"); }, 4200);
   });
   render(); renderAnn();
