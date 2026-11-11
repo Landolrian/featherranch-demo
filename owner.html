@@ -4,116 +4,115 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Owner Dashboard | Feather Ranch Kennels</title>
+<title>Update My Website | Feather Ranch Kennels</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1626'/%3E%3Ctext x='32' y='46' font-family='Georgia' font-style='italic' font-size='40' fill='%23e2c48c' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  body { background: var(--night); }
-  .bar { border-bottom: 1px solid var(--line); }
-  .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 16px; }
-  .bar img { height: 26px; width: auto; }
-  .bar a { color: var(--dim); text-decoration: none; font-weight: 600; font-size: .9rem; }
-  .bar a:hover { color: var(--cream); }
-  .hello { padding: 60px 0 36px; display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; }
-  .hello h1 { font-size: clamp(3rem, 6vw, 5.4rem); line-height: .9; }
-  .hello p { color: var(--soft); margin: 0; max-width: 28em; }
-  .dash { display: grid; grid-template-columns: 430px 1fr; gap: 36px; padding-bottom: 80px; align-items: start; }
-  .dash > * { min-width: 0; }
-  .panel { background: var(--night-2); border: 1px solid var(--line); border-radius: 26px; padding: 28px; }
-  .tabs { display: flex; gap: 4px; padding: 5px; border-radius: 999px; background: rgba(244,239,230,.06); margin-bottom: 28px; }
-  .tabs button { flex: 1; font: inherit; font-weight: 700; font-size: .86rem; border: 0; background: none; color: var(--dim); padding: 10px; border-radius: 999px; cursor: pointer; transition: background .3s, color .3s; }
-  .tabs button[aria-selected="true"] { background: var(--cream); color: var(--night); }
-  .panel h2 { font-size: 2.2rem; margin-bottom: 6px; }
-  .panel .sub { color: var(--dim); font-size: .92rem; margin-bottom: 26px; }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .status-pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
-  .status-pick label { position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 12px 6px; text-align: center; font-size: .82rem; font-weight: 700; cursor: pointer; line-height: 1.3; transition: border-color .3s, background .3s; letter-spacing: 0; text-transform: none; color: var(--cream); margin: 0; }
-  .status-pick input { position: absolute; opacity: 0; pointer-events: none; }
-  .status-pick label:has(input:checked) { border-color: var(--wheat); background: rgba(226,196,140,.12); color: var(--wheat); }
-  .drop { display: flex; gap: 16px; align-items: center; border: 1px dashed rgba(244,239,230,.3); border-radius: 16px; padding: 12px; cursor: pointer; transition: border-color .3s, background .3s; letter-spacing: 0 !important; text-transform: none !important; }
-  .drop:hover, .drop.over { border-color: var(--wheat); background: rgba(226,196,140,.08); }
-  .drop img { width: 58px; height: 72px; object-fit: cover; border-radius: 10px; }
-  .drop b { display: block; color: var(--cream); font-size: .98rem; }
-  .drop span { color: var(--dim); font-size: .85rem; font-weight: 500; }
-  .switch { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 26px; }
-  .switch b { display: block; }
-  .switch small { color: var(--dim); }
-  .toggle { appearance: none; -webkit-appearance: none; width: 52px; height: 30px; border-radius: 999px; background: rgba(244,239,230,.2); position: relative; cursor: pointer; transition: background .3s; flex: none; }
-  .toggle::after { content: ""; position: absolute; top: 4px; left: 4px; width: 22px; height: 22px; border-radius: 50%; background: var(--cream); transition: transform .3s var(--ease); }
-  .toggle:checked { background: #3fae6e; }
-  .toggle:checked::after { transform: translateX(22px); }
-  .publish { width: 100%; justify-content: center; margin-top: 10px; }
-  .tabpane[hidden] { display: none; }
-  .preview-wrap { position: sticky; top: 24px; }
-  .browser { border-radius: 22px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 40px 100px rgba(0,0,0,.45); }
-  .chrome { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #16243a; }
-  .chrome i { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,.18); }
-  .chrome span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: 10px; background: rgba(255,255,255,.07); border-radius: 8px; padding: 5px 14px; font-size: .8rem; color: var(--dim); }
-  .live { display: inline-flex; align-items: center; gap: 7px; font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #6fe09c; }
-  .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6fe09c; animation: blink 1.4s infinite; }
-  @keyframes blink { 50% { opacity: .25; } }
-  .preview { background: var(--cream); color: var(--ink); padding: 34px; max-height: calc(100vh - 150px); overflow: auto; }
-  .preview .pair { grid-template-columns: 1fr 70px 1fr; }
-  .preview .cross { font-size: 4.4rem; margin-top: -40px; }
-  .preview .parent h4 { font-size: 1.9rem; }
-  .preview .parent p { font-size: .92rem; }
-  .preview .litter-top h3 { font-size: 3rem; }
-  .preview .litter-cta { margin-top: 34px; padding: 22px 24px; }
-  .preview .litter-cta p { font-size: 1.4rem; }
-  .flash { animation: flash 1s ease; border-radius: 8px; }
-  @keyframes flash { 0% { background: rgba(226,196,140,.9); } 100% { background: transparent; } }
-  .toast { position: fixed; left: 16px; right: 16px; bottom: 26px; margin: 0 auto; width: fit-content; max-width: calc(100% - 32px); background: var(--cream); color: var(--night); padding: 14px 22px; border-radius: 999px; font-weight: 700; box-shadow: 0 20px 50px rgba(0,0,0,.4); opacity: 0; transform: translateY(20px); transition: .4s var(--ease); z-index: 50; }
-  .toast.show { opacity: 1; transform: none; }
-  @media (max-width: 1050px) { .dash { grid-template-columns: 1fr; } .preview-wrap { position: static; } .preview { max-height: none; } }
-  @media (max-width: 640px) { .preview { padding: 20px; } .preview .pair { grid-template-columns: 1fr; } .row2 { grid-template-columns: 1fr; gap: 0; } .panel { padding: 22px 18px; } }
+  body { background: #f7f4ee; color: #1b2433; font-size: 19px; line-height: 1.55; }
+  .top { background: #fff; border-bottom: 1px solid #e6e0d4; }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 16px; }
+  .top img { height: 28px; width: auto; }
+  .top a { color: #1a5fa8; font-weight: 700; text-decoration: none; font-size: 1rem; }
+  .intro { padding: 44px 0 30px; }
+  .intro h1 { font-family: var(--display); font-size: clamp(2.6rem, 5vw, 3.6rem); color: #10264a; line-height: 1; margin-bottom: 10px; }
+  .intro p { color: #4b5466; margin: 0; font-size: 1.1rem; }
+  .layout { display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: 40px; align-items: start; padding-bottom: 140px; }
+  .card { background: #fff; border: 1px solid #e6e0d4; border-radius: 18px; padding: 28px; margin-bottom: 22px; }
+  .card h2 { font-family: var(--sans); font-size: 1.3rem; font-weight: 800; color: #10264a; letter-spacing: 0; line-height: 1.2; margin: 0 0 4px; }
+  .card .hint { color: #5d6678; font-size: 1rem; margin: 0 0 22px; }
+  .q { margin-bottom: 20px; }
+  .q:last-child { margin-bottom: 0; }
+  .q > label, .q > .lbl { display: block; font-weight: 700; font-size: 1.02rem; color: #1b2433; margin-bottom: 8px; }
+  .q input[type=text], .q textarea { width: 100%; font: inherit; font-size: 1.1rem; color: #1b2433; background: #fff; border: 2px solid #d5dbe5; border-radius: 12px; padding: 14px 16px; transition: border-color .2s; }
+  .q textarea { min-height: 110px; resize: vertical; }
+  .q input:focus, .q textarea:focus { outline: none; border-color: #1a6fbf; box-shadow: 0 0 0 4px rgba(26,111,191,.15); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .choices { display: grid; gap: 10px; }
+  .choices label { display: flex; align-items: center; gap: 14px; border: 2px solid #d5dbe5; border-radius: 12px; padding: 14px 16px; cursor: pointer; font-weight: 600; font-size: 1.05rem; transition: border-color .2s, background .2s; }
+  .choices input { width: 24px; height: 24px; accent-color: #1a6fbf; margin: 0; flex: none; }
+  .choices label:has(input:checked) { border-color: #1a6fbf; background: #eef5fc; }
+  .photo-pick { display: flex; align-items: center; gap: 18px; }
+  .photo-pick img { width: 96px; height: 120px; object-fit: cover; border-radius: 12px; border: 1px solid #e6e0d4; }
+  .photo-pick label.btn-pick { display: inline-block; background: #fff; border: 2px solid #1a6fbf; color: #1a6fbf; font-weight: 700; font-size: 1rem; padding: 12px 20px; border-radius: 12px; cursor: pointer; }
+  .photo-pick label.btn-pick:hover { background: #eef5fc; }
+  .photo-pick input { display: none; }
+  .switch-row { display: flex; align-items: center; gap: 14px; font-weight: 700; margin-bottom: 18px; cursor: pointer; }
+  .switch-row input { width: 26px; height: 26px; accent-color: #1a6fbf; margin: 0; }
+  .preview-col { position: sticky; top: 24px; }
+  .preview-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 12px; }
+  .preview-head b { font-size: 1.05rem; color: #10264a; }
+  .preview-head span { color: #1f7a49; font-weight: 700; font-size: .95rem; }
+  .frame { border-radius: 18px; overflow: hidden; border: 1px solid #e6e0d4; background: var(--cream); box-shadow: 0 20px 50px rgba(16,38,74,.12); }
+  .frame .announce { font-size: .92rem; }
+  .preview { padding: 30px; color: var(--ink); max-height: calc(100vh - 140px); overflow: auto; }
+  .preview .pair { grid-template-columns: 1fr 60px 1fr; }
+  .preview .cross { font-size: 4rem; margin-top: -40px; }
+  .preview .parent h4 { font-size: 1.8rem; }
+  .preview .parent p { font-size: .95rem; }
+  .preview .litter-top { margin-bottom: 30px; }
+  .preview .litter-top h3 { font-size: 2.8rem; }
+  .preview .litter-cta { margin-top: 30px; padding: 22px 24px; }
+  .preview .litter-cta p { font-size: 1.35rem; }
+  .flash { animation: flash 1.1s ease; border-radius: 8px; }
+  @keyframes flash { 0% { background: rgba(226,196,140,.95); } 100% { background: transparent; } }
+  .savebar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid #e6e0d4; padding: 16px 0; z-index: 20; }
+  .savebar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .savebar p { margin: 0; color: #4b5466; font-size: 1rem; }
+  .save { font: inherit; font-weight: 800; font-size: 1.1rem; background: #1a6fbf; color: #fff; border: 0; border-radius: 14px; padding: 16px 34px; cursor: pointer; transition: background .2s; }
+  .save:hover { background: #12559a; }
+  .save.done { background: #1f7a49; }
+  @media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } .preview-col { position: static; } .preview { max-height: none; } }
+  .top a { white-space: nowrap; }
+  @media (max-width: 600px) { .top img { height: 22px; } .preview .cross { display: none; } .card { padding: 22px 18px; } .two { grid-template-columns: 1fr; gap: 0; } .two .q { margin-bottom: 20px; } .preview { padding: 18px; } .preview .pair { grid-template-columns: 1fr; } .savebar p { display: none; } .save { width: 100%; } }
 </style>
 </head>
 <body>
-<div class="bar"><div class="wrap"><img src="images/logo-white.png" alt="Feather Ranch Kennels"><a href="index.html" target="_blank">View website ↗</a></div></div>
+<div class="top"><div class="wrap"><img src="images/logo-navy.png" alt="Feather Ranch Kennels"><a href="index.html" target="_blank">View my website ↗</a></div></div>
 <main class="wrap">
-  <div class="hello"><div><span class="label">Owner dashboard</span><h1 style="margin-top:14px">Good morning, <i>Debbie.</i></h1></div><p>Type on the left and watch your website change on the right. No computer skills needed.</p></div>
-  <div class="dash">
-    <div class="panel">
-      <div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="litter">Litter</button><button role="tab" aria-selected="false" data-tab="parents">Parents</button><button role="tab" aria-selected="false" data-tab="banner">Banner</button></div>
-      <div class="tabpane" data-pane="litter">
-        <h2>Current litter</h2><p class="sub">Shown on the Home and Puppies pages.</p>
-        <div class="field"><label for="e-name">Litter name</label><input id="e-name" data-k="name"></div>
-        <div class="row2"><div class="field"><label for="e-born">Born</label><input id="e-born" data-k="born"></div><div class="field"><label for="e-colors">Colors</label><input id="e-colors" data-k="colors"></div></div>
-        <div class="field"><label>Status</label><div class="status-pick">
-          <label><input type="radio" name="status" value="Taking deposits">Taking deposits</label>
+  <div class="intro"><h1>Hi Debbie!</h1><p>Change anything below. The preview shows exactly how your website will look.</p></div>
+  <div class="layout">
+    <div>
+      <section class="card">
+        <h2>1. Your litter</h2><p class="hint">Shown on the Home and Puppies pages.</p>
+        <div class="q"><label for="e-name">Litter name</label><input type="text" id="e-name" data-k="name"></div>
+        <div class="two"><div class="q"><label for="e-born">Date born</label><input type="text" id="e-born" data-k="born"></div><div class="q"><label for="e-colors">Colors</label><input type="text" id="e-colors" data-k="colors"></div></div>
+        <div class="q"><span class="lbl">Are puppies available?</span><div class="choices">
+          <label><input type="radio" name="status" value="Taking deposits">Yes, taking deposits</label>
           <label><input type="radio" name="status" value="Call for availability">Call for availability</label>
           <label><input type="radio" name="status" value="Sold out">Sold out</label></div></div>
-        <div class="field"><label for="e-note">A note about this litter</label><textarea id="e-note" data-k="note" style="min-height:80px"></textarea></div>
-      </div>
-      <div class="tabpane" data-pane="parents" hidden>
-        <h2>Sire &amp; dam</h2><p class="sub">Drag in a new photo, or tap to choose one from your phone.</p>
-        <div class="field"><label class="drop" data-who="sire"><img alt=""><div><b>Sire photo</b><span>Drag a photo here or tap</span></div><input type="file" accept="image/*" hidden></label></div>
-        <div class="field"><label for="e-sire">Sire name</label><input id="e-sire" data-p="sire.name"></div>
-        <div class="field"><label for="e-sire-about">About the sire</label><textarea id="e-sire-about" data-p="sire.about" style="min-height:90px"></textarea></div>
-        <div class="field"><label class="drop" data-who="dam"><img alt=""><div><b>Dam photo</b><span>Drag a photo here or tap</span></div><input type="file" accept="image/*" hidden></label></div>
-        <div class="field"><label for="e-dam">Dam name</label><input id="e-dam" data-p="dam.name"></div>
-        <div class="field"><label for="e-dam-about">About the dam</label><textarea id="e-dam-about" data-p="dam.about" style="min-height:90px"></textarea></div>
-      </div>
-      <div class="tabpane" data-pane="banner" hidden>
-        <h2>Top banner</h2><p class="sub">A gold strip across the top of every page. Perfect for news.</p>
-        <div class="switch"><div><b>Show the banner</b><small>Turn it off when there's no news</small></div><input type="checkbox" class="toggle" id="e-ann-on" checked aria-label="Show the banner"></div>
-        <div class="field"><label for="e-ann">Banner message</label><input id="e-ann"></div>
-      </div>
-      <button class="btn btn-cream publish" id="publish">Publish changes <span>→</span></button>
+        <div class="q"><label for="e-note">A short note</label><textarea id="e-note" data-k="note"></textarea></div>
+      </section>
+
+      <section class="card">
+        <h2>2. The parents</h2><p class="hint">Tap “Change photo” to pick one from your phone or computer.</p>
+        <div class="q"><span class="lbl">Dad (sire)</span><div class="photo-pick" data-who="sire"><img alt=""><label class="btn-pick">Change photo<input type="file" accept="image/*"></label></div></div>
+        <div class="q"><label for="e-sire">Dad's name</label><input type="text" id="e-sire" data-p="sire.name"></div>
+        <div class="q"><label for="e-sire-about">About him</label><textarea id="e-sire-about" data-p="sire.about"></textarea></div>
+        <div class="q" style="margin-top:30px"><span class="lbl">Mom (dam)</span><div class="photo-pick" data-who="dam"><img alt=""><label class="btn-pick">Change photo<input type="file" accept="image/*"></label></div></div>
+        <div class="q"><label for="e-dam">Mom's name</label><input type="text" id="e-dam" data-p="dam.name"></div>
+        <div class="q"><label for="e-dam-about">About her</label><textarea id="e-dam-about" data-p="dam.about"></textarea></div>
+      </section>
+
+      <section class="card">
+        <h2>3. News banner</h2><p class="hint">The gold strip at the very top of your website.</p>
+        <label class="switch-row"><input type="checkbox" id="e-ann-on" checked>Show the banner</label>
+        <div class="q"><label for="e-ann">Banner message</label><input type="text" id="e-ann"></div>
+      </section>
     </div>
-    <div class="preview-wrap">
-      <div class="browser">
-        <div class="chrome"><i></i><i></i><i></i><span>featherranch.com/puppies</span><b class="live">Live</b></div>
+
+    <div class="preview-col">
+      <div class="preview-head"><b>Preview</b><span>● Updates as you type</span></div>
+      <div class="frame">
         <div class="announce" id="ann-prev"></div>
         <div class="preview"><div id="prev"></div></div>
       </div>
     </div>
   </div>
 </main>
-<div class="toast" id="toast" role="status"></div>
+<div class="savebar"><div class="wrap"><p>Happy with it? Save and it goes on your website.</p><button class="save" id="save">Save changes</button></div></div>
 <script src="content.js"></script>
 <script>
 (function () {
@@ -121,15 +120,14 @@
   L.colors = (L.colors || []).join(", ");
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var parent = function (p, role, key) {
-    return '<div class="parent"><figure data-f="' + key + '-photo"><img src="' + esc(p.photo) + '" alt="" style="object-position:center 28%"><span>' + role + '</span></figure><h4 data-f="' + key + '-name">' + esc(p.name) + '</h4><div class="call">“' + esc(p.callName) + '”</div><p data-f="' + key + '-about">' + esc(p.about) + '</p><ul class="clearances">' + (p.health || []).map(function (h) { var x = h.split(/\s*[–-]\s*/); return "<li><span>" + esc(x[0]) + "</span><b>" + esc(x[1] || "") + "</b></li>"; }).join("") + "</ul></div>";
+    return '<div class="parent"><figure data-f="' + key + '-photo"><img src="' + esc(p.photo) + '" alt="" style="object-position:center 28%"><span>' + role + '</span></figure><h4 data-f="' + key + '-name">' + esc(p.name) + '</h4><p data-f="' + key + '-about">' + esc(p.about) + '</p><ul class="clearances">' + (p.health || []).map(function (h) { var x = h.split(/\s*[–-]\s*/); return "<li><span>" + esc(x[0]) + "</span><b>" + esc(x[1] || "") + "</b></li>"; }).join("") + "</ul></div>";
   };
-  var prev = document.getElementById("prev"), last;
+  var prev = document.getElementById("prev");
   function render(changed) {
     var sold = /sold/i.test(L.status);
-    prev.innerHTML = '<div class="litter-top"><h3 data-f="name">The ' + esc(L.name.replace(/ litter$/i, "")) + ' <i>Litter</i></h3><div class="litter-meta"><span data-f="born">Born ' + esc(L.born) + '</span><span data-f="colors">' + esc(L.colors) + ' Labs</span><span class="status' + (sold ? " sold" : "") + '" data-f="status">' + esc(L.status) + '</span></div></div><div class="pair">' + parent(L.sire, "Sire", "sire") + '<div class="cross">×</div>' + parent(L.dam, "Dam", "dam") + '</div><div class="litter-cta"><p data-f="note">' + esc(L.note) + '<br><i>A $100 deposit holds your pick.</i></p><div class="acts"><span class="btn btn-cream">Reserve a puppy <span>→</span></span></div></div>';
-    if (changed && changed !== last) { var el = prev.querySelector('[data-f="' + changed + '"]'); if (el) { el.classList.add("flash"); el.scrollIntoView({ block: "nearest", behavior: "smooth" }); } }
-    last = changed;
-    setTimeout(function () { last = null; }, 900);
+    prev.innerHTML = '<div class="litter-top"><h3 data-f="name">' + esc(L.name) + '</h3><div class="litter-meta"><span data-f="born">Born ' + esc(L.born) + '</span><span data-f="colors">' + esc(L.colors) + ' Labs</span><span class="status' + (sold ? " sold" : "") + '" data-f="status">' + esc(L.status) + '</span></div></div><div class="pair">' + parent(L.sire, "Sire", "sire") + '<div class="cross">×</div>' + parent(L.dam, "Dam", "dam") + '</div><div class="litter-cta"><p data-f="note">' + esc(L.note) + '<br><i>A $100 deposit holds your pick.</i></p></div>';
+    if (changed) { var el = prev.querySelector('[data-f="' + changed + '"]'); if (el) { el.classList.add("flash"); el.scrollIntoView({ block: "nearest", behavior: "smooth" }); } }
+    saved(false);
   }
   document.querySelectorAll("[data-k]").forEach(function (el) {
     var k = el.dataset.k; el.value = L[k];
@@ -143,30 +141,21 @@
     r.checked = r.value === L.status;
     r.addEventListener("change", function () { L.status = r.value; render("status"); });
   });
-  document.querySelectorAll(".drop").forEach(function (d) {
+  document.querySelectorAll(".photo-pick").forEach(function (d) {
     var who = d.dataset.who, img = d.querySelector("img"), input = d.querySelector("input");
     img.src = L[who].photo;
-    var use = function (f) { if (!f || !/^image\//.test(f.type)) return; var r = new FileReader(); r.onload = function () { L[who].photo = r.result; img.src = r.result; render(who + "-photo"); }; r.readAsDataURL(f); };
-    input.addEventListener("change", function () { use(input.files[0]); });
-    d.addEventListener("dragover", function (e) { e.preventDefault(); d.classList.add("over"); });
-    d.addEventListener("dragleave", function () { d.classList.remove("over"); });
-    d.addEventListener("drop", function (e) { e.preventDefault(); d.classList.remove("over"); use(e.dataTransfer.files[0]); });
+    input.addEventListener("change", function () {
+      var f = input.files[0]; if (!f || !/^image\//.test(f.type)) return;
+      var r = new FileReader(); r.onload = function () { L[who].photo = r.result; img.src = r.result; render(who + "-photo"); }; r.readAsDataURL(f);
+    });
   });
   var ann = document.getElementById("e-ann"), on = document.getElementById("e-ann-on"), ap = document.getElementById("ann-prev");
   ann.value = C.announcement;
-  var renderAnn = function () { ap.textContent = ann.value + " · See the litter →"; ap.style.display = on.checked && ann.value ? "" : "none"; };
+  var renderAnn = function () { ap.textContent = ann.value; ap.style.display = on.checked && ann.value ? "" : "none"; saved(false); };
   ann.addEventListener("input", renderAnn); on.addEventListener("change", renderAnn);
-  document.querySelectorAll("[role=tab]").forEach(function (t) {
-    t.addEventListener("click", function () {
-      document.querySelectorAll("[role=tab]").forEach(function (x) { x.setAttribute("aria-selected", x === t); });
-      document.querySelectorAll(".tabpane").forEach(function (p) { p.hidden = p.dataset.pane !== t.dataset.tab; });
-    });
-  });
-  var toast = document.getElementById("toast");
-  document.getElementById("publish").addEventListener("click", function () {
-    toast.textContent = "✓ Looks great. Once your new site is live, this button puts changes online instantly.";
-    toast.classList.add("show"); setTimeout(function () { toast.classList.remove("show"); }, 4200);
-  });
+  var btn = document.getElementById("save");
+  function saved(yes) { btn.classList.toggle("done", yes); btn.textContent = yes ? "✓ Saved" : "Save changes"; }
+  btn.addEventListener("click", function () { saved(true); });
   render(); renderAnn();
 })();
 </script>
